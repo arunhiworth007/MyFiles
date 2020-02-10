@@ -1,0 +1,366 @@
+Arithmetic Operators
+Relational Operators
+Boolean Operators
+String Operators
+File Test Operators
+
++ (Addition)
+- (Subtraction)
+* (Multiplication)
+/ (Division)
+% (Modulus)
+= (Assignment)
+== (Equality)
+!= (Not Equality)
+
+
+-eq
+-ne
+-gt
+-lt
+-ge
+-le
+
+!
+-o
+-a
+
+
+=
+!=
+-z
+-n
+str
+
+
+-b file
+Checks if file is a block special file; if yes, then the condition becomes true.				[ -b $file ] is false.
+-c file
+Checks if file is a character special file; if yes, then the condition becomes true.			[ -c $file ] is false.
+-d file
+Checks if file is a directory; if yes, then the condition becomes true.				[ -d $file ] is not true.
+-f file
+Checks if file is an ordinary file / a directory / special file; if yes, then the condition becomes true.	[ -f $file ] is true.
+-g file
+Checks if file has its set group ID (SGID) bit set; if yes, then the condition becomes true.		[ -g $file ] is false.
+-k file
+Checks if file has its sticky bit set; if yes, then the condition becomes true.				[ -k $file ] is false.
+-p file
+Checks if file is a named pipe; if yes, then the condition becomes true.				[ -p $file ] is false.
+-t file
+Checks if file descriptor is open and associated with a terminal; if yes, then the condition becomes true.	[ -t $file ] is false.
+-u file
+Checks if file has its Set User ID (SUID) bit set; if yes, then the condition becomes true.		[ -u $file ] is false.
+-r file
+Checks if file is readable; if yes, then the condition becomes true.				[ -r $file ] is true.
+-w file
+Checks if file is writable; if yes, then the condition becomes true.				[ -w $file ] is true.
+-x file
+Checks if file is executable; if yes, then the condition becomes true.				[ -x $file ] is true.
+-s file
+Checks if file has size greater than 0; if yes, then condition becomes true.				[ -s $file ] is true.
+-e file
+Checks if file exists; is true even if file is a directory but exists.					[ -e $file ] is true.
+
+
+
+
+What is Substitution?
+The shell performs substitution when it encounters an expression that contains one or more special characters.
+
+value subs
+
+\\		backslash
+\a		alert (BEL)
+\b		backspace
+\c 		suppress trailing newline
+\f 		form feed
+\n		new line
+\r		carriage return
+\t 		horizontal tab
+\v 		vertical tab
+
+
+command subs
+DATE=`date`
+echo "Date is $DATE"
+
+USERS=`who | wc -l`
+echo "Logged in user are $USERS"
+
+UP=`date ; uptime`
+echo "Uptime is $UP"
+
+
+variable subs
+${var}			Substitute the value of var.
+${var:-word}		If var is null or unset, word is substituted for var. The value of var does not change.
+${var:=word}		If var is null or unset, var is set to the value of word.
+${var:?message}		If var is null or unset, message is printed to standard error. This checks that variables are set correctly.
+${var:+word}		If var is set, word is substituted for var. The value of var does not change.
+
+
+${var:-"Variable is not set"}
+echo "1 - Value of var is ${var}"
+${var:="Variable is not set"}
+echo "2 - Value of var is ${var}"
+unset var
+
+${var:+"This is default value"}
+echo "3 - Value of var is $var"
+
+var="Prefix"
+${var:+"This is default value"}
+echo "4 - Value of var is $var"
+
+unset var
+${var:?"Print this message"}
+echo "5 - Value of var is ${var}"
+
+
+The Metacharacters
+*	 ?	 [	 ]	 '	 "	 \	 $	 ;	 &	 (	 )	 |	 ^	 <	 >	 new-line 		space tab
+
+
+
+special meaning needs to be suppressed	-->   QUOTING
+
+echo  This is  \n newline
+This is \\n newline
+This is 
+newline
+
+Single quote			All special characters between these quotes lose their special meaning.
+Double quote			Most special characters between these quotes lose their special meaning with these exceptions 					−
+					$
+					`
+					\$
+					\'
+					\"
+					\\
+Backslash				Any character immediately following the backslash loses its special meaning.
+Back quote			Anything in between back quotes would be treated as a command and would be executed.
+
+
+echo <-$1500.**>; (update?) [y|n]
+
+echo \<-\$1500.\*\*\>\; \(update\?\) \[y\|n\]	--> TEDIOUS TO WRITE
+
+echo '<-$1500.**>; (update?) [y|n]'
+
+VAR=ABC
+echo '$VAR owes <-$1500.**>; [ as of (`date +%m/%d`) ]'
+
+VAR=ABC
+echo "$VAR owes <-\$1500.**>; [ as of (`date +%m/%d`) ]"
+
+echo 'It\'s Shell Programming   		WRONG
+echo 'It\'s Linux Shell Programming'
+echo "It\'s Linux Shell Programming"
+
+
+var=`command`			COMMAND executes directly
+
+DATE=`date`
+echo "Current Date: $DATE"
+
+
+=========================
+
+
+
+if...fi statement
+if...else...fi statement
+if...elif...else...fi statement
+
+
+case...esac statement
+
+
+The while loop
+The for loop
+The until loop
+The select loop
+
+a=0
+while [ "$a" -lt 10 ]    # this is loop1
+do
+   b="$a"
+   while [ "$b" -ge 0 ]  # this is loop2
+   do
+      echo -n "$b "
+      b=`expr $b - 1`
+       break 2
+   done
+   echo
+   a=`expr $a + 1`
+done
+
+
+infinite loop is wrong  use appropriately
+a=10
+until [ $a -lt 10 ]
+do
+   echo $a
+   a=`expr $a + 1`
+done
+
+break n
+Here n specifies the nth enclosing loop to the exit from.
+
+a=0
+while [ $a -lt 10 ]
+do
+   echo $a
+   if [ $a -eq 5 ]
+   then
+      break
+   fi
+   a=`expr $a + 1`
+done
+
+
+
+for var1 in 1 2 3
+do
+   for var2 in 5 6
+   do
+      if [ $var1 -eq 2 -a $var2 -eq 6 ]
+      then
+         break 2
+      else
+         echo "$var1 $var2"
+      fi
+   done
+done
+
+
+continue n
+Here n specifies the nth enclosing loop to continue from.
+
+NUMS="1 2 3 4 5 6 7"
+
+for NUM in $NUMS
+do
+   Q=`expr $NUM % 2`
+   if [ $Q -eq 0 ]
+   then
+      echo "Number is an even number!!"
+      continue
+   fi
+   echo "Found odd number"
+done
+
+
+What is Substitution?
+The shell performs substitution when it encounters an expression that contains one or more special characters.
+
+value subs
+
+\\		backslash
+\a		alert (BEL)
+\b		backspace
+\c 		suppress trailing newline
+\f 		form feed
+\n		new line
+\r		carriage return
+\t 		horizontal tab
+\v 		vertical tab
+
+
+command subs
+DATE=`date`
+echo "Date is $DATE"
+
+USERS=`who | wc -l`
+echo "Logged in user are $USERS"
+
+UP=`date ; uptime`
+echo "Uptime is $UP"
+
+
+variable subs
+${var}			Substitute the value of var.
+${var:-word}		If var is null or unset, word is substituted for var. The value of var does not change.
+${var:=word}		If var is null or unset, var is set to the value of word.
+${var:?message}		If var is null or unset, message is printed to standard error. This checks that variables are set correctly.
+${var:+word}		If var is set, word is substituted for var. The value of var does not change.
+
+
+${var:-"Variable is not set"}
+echo "1 - Value of var is ${var}"
+${var:="Variable is not set"}
+echo "2 - Value of var is ${var}"
+unset var
+
+${var:+"This is default value"}
+echo "3 - Value of var is $var"
+
+var="Prefix"
+${var:+"This is default value"}
+echo "4 - Value of var is $var"
+
+unset var
+${var:?"Print this message"}
+echo "5 - Value of var is ${var}"
+
+
+The Metacharacters
+*	 ?	 [	 ]	 '	 "	 \	 $	 ;	 &	 (	 )	 |	 ^	 <	 >	 new-line 		space tab
+
+
+special meaning needs to be suppressed	-->   QUOTING
+
+Single quote			All special characters between these quotes lose their special meaning.
+Double quote			Most special characters between these quotes lose their special meaning with these exceptions 					−
+					$
+					`
+					\$
+					\'
+					\"
+					\\
+Backslash				Any character immediately following the backslash loses its special meaning.
+Back quote			Anything in between back quotes would be treated as a command and would be executed.
+
+
+echo <-$1500.**>; (update?) [y|n]
+
+echo \<-\$1500.\*\*\>\; \(update\?\) \[y\|n\]	--> TEDIOUS TO WRITE
+
+echo '<-$1500.**>; (update?) [y|n]'
+
+
+
+VAR=ABC
+echo '$VAR owes <-$1500.**>; [ as of (`date +%m/%d`) ]'
+
+
+VAR=ABC
+echo "$VAR owes <-\$1500.**>; [ as of (`date +%m/%d`) ]"
+
+echo 'It\'s Shell Programming   		WRONG
+echo 'It\'s Linux Shell Programming'
+
+
+var=`command`			COMMAND executes directly
+
+DATE=`date`
+echo "Current Date: $DATE"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

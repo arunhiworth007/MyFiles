@@ -1,0 +1,83 @@
+variable ="Hello"
+echo $variable
+
+# Script follows here:
+echo "What is your name?"
+read PERSON
+echo "Hello, $PERSON"
+
+
+
+name="ABC"
+readonly name
+echo $name
+name="DEF"
+unset name
+echo $name
+
+
+Below is a small script which will use a variable. 
+#!/bin/sh
+echo "what is your name?"
+read name
+echo "How do you do, $name?"
+read remark
+echo "I am $remark too!"
+
+===========================
+
+SPL VARIABLES
+$0
+The filename of the current script.
+
+$n
+These variables correspond to the arguments with which a script was invoked. Here n is a positive decimal number corresponding to the position of an argument (the first argument is $1, the second argument is $2, and so on).
+
+$#
+The number of arguments supplied to a script.
+
+$*
+All the arguments are double quoted. If a script receives two arguments, $* is equivalent to $1 $2.
+
+$@
+All the arguments are individually double quoted. If a script receives two arguments, $@ is equivalent to $1 $2.
+
+$?
+The exit status of the last command executed.
+
+$$The process number of the current shell. For shell scripts, this is the process ID under which they are executing.
+
+$!
+The process number of the last background command.
+=========================
+
+Command-Line Arguments
+The command-line arguments $1, $2, $3, ...$9 are positional parameters, 
+
+
+echo "File Name: $0"
+echo "First Parameter : $1"
+echo "Second Parameter : $2"
+echo "Quoted Values: $@"
+echo "Quoted Values: $*"
+echo "Total Number of Parameters : $#"
+
+new cmd
+$echo $?
+
+=====================
+
+array_name[index]=value
+
+NAME[0]="Z"
+NAME[1]="Q"
+NAME[2]="M"
+NAME[3]="A"
+NAME[4]="D"
+echo "First Index: ${NAME[0]}"
+echo "Second Index: ${NAME[1]}"
+
+echo "all elements"
+echo "First Method: ${NAME[*]}"
+echo "Second Method: ${NAME[@]}"
+
